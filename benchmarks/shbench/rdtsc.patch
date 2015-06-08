@@ -1,0 +1,74 @@
+--- src/sh6bench.c	2001-09-16 22:37:26.000000000 +0200
++++ src-old/sh6bench.c	2015-03-12 14:52:41.756843900 +0100
+@@ -30,6 +30,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <stdint.h>
+ #include <string.h>
+ #include <time.h>
+ #include <assert.h>
+@@ -182,6 +183,15 @@
+ 
+ #endif
+ 
++
++inline uint64_t rdtsc(void) {
++  unsigned int hi, lo;
++  __asm__ __volatile__("rdtsc" : "=a"(lo), "=d"(hi));
++  return ((uint64_t) lo) | (((uint64_t) hi) << 32);
++}
++
++const int64_t kCPUSpeed = 2000000000;
++
+ void doBench(void *);
+ 
+ void main(int argc, char *argv[])
+@@ -190,6 +200,9 @@
+ 	time_t startTime;
+ 	double elapsedTime, cpuTime;
+ 
++  uint64_t start_;
++  uint64_t end_;
++
+ #ifdef SMARTHEAP
+ 	MemRegisterTask();
+ #endif
+@@ -255,6 +268,9 @@
+ 	
+ 		uThreadCount = (int)promptAndRead("threads", GetNumProcessors(), 'u');
+ 
++    printf("\nparams: call count: %u, min size: %u, max size: %u, threads: %u\n",
++        ulCallCount, uMinBlockSize, uMaxBlockSize, uThreadCount);
++
+ 		if (uThreadCount < 1)
+ 			uThreadCount = 1;
+ 		ulCallCount /= uThreadCount;
+@@ -262,6 +278,7 @@
+ 		{
+ 			startCPU = clock();
+ 			startTime = time(NULL);
++      start_ = rdtsc();
+ 			for (i = 0;  i < uThreadCount;  i++)
+ 				if (THREAD_EQ(tids[i] = RunThread(doBench, threadArg),THREAD_NULL))
+ 				{
+@@ -281,8 +298,9 @@
+ 	doBench(NULL);
+ #endif
+ 
++  end_ = rdtsc();
+ 	elapsedTime = difftime(time(NULL), startTime);
+-	cpuTime = (double)(clock()-startCPU) / (double)CLK_TCK;
++	cpuTime = (double)(clock()-startCPU) / (double)CLOCKS_PER_SEC;
+ 
+ 	fprintf_silent(fout, "\n");
+ 	fprintf(fout, "\nTotal elapsed time"
+@@ -295,6 +313,8 @@
+ #endif
+ 			  elapsedTime, cpuTime);
+ 
++  fprintf(fout, "\nrdtsc time: %f\n", ((double)end_ - (double)start_)/kCPUSpeed);
++
+ 	if (fin != stdin)
+ 		fclose(fin);
+ 	if (fout != stdout)

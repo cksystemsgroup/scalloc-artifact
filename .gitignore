@@ -1,0 +1,11 @@
+deps/
+data/
+allocators
+
+benchmarks/ACDC/
+benchmarks/shbench/src/
+
+*.target.mk
+*.Makefile
+Makefile
+out/
