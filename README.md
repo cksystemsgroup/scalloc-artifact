@@ -1,5 +1,7 @@
 # Scalloc Artifact Repository
 
+**PLEASE REFER TO THE LATEST STABLE VERSION WHEN CONDUCTING EXPERIMENTS!**
+
 This repository contains the tools and benchmarks needed to build interesting
 allocators (including scalloc) and evaluate them in various benchmarks.
 
