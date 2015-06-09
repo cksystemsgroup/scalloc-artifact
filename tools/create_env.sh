@@ -15,6 +15,7 @@ function prepare_acdc {
   fi
   git clone $ACDC_REPO $ACDC_DIR
   cd $ACDC_DIR
+  git checkout v1.3
   $GYP --depth=. acdc.gyp
   BUILDTYPE=Debug make
   BUILDTYPE=Release make
