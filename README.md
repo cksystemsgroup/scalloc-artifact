@@ -14,6 +14,7 @@ The following commands can be used to prepare a new artifact environment
 ```bash
 git clone https://github.com/cksystemsgroup/scalloc-artifact.git
 cd scalloc-artifact
+git checkout 1.0.0
 tools/make_deps.sh
 tools/create_env.sh
 ```
