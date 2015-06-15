@@ -44,7 +44,7 @@ function prepare_allocators {
   # employ custom builds for scalloc to enable indepth evaluation
   curl -O https://raw.githubusercontent.com/cksystemsgroup/scalloc/master/tools/install_scalloc.sh
   chmod +x install_scalloc.sh
-  ./install_allocators.sh jemalloc llalloc tbb hoard streamflow tcmalloc scalloc
+  ./install_allocators.sh jemalloc llalloc tbb hoard streamflow tcmalloc scalloc supermalloc
   ln -s $ACDC_DIR/allocators $ALLOCATORS_DIR
 }
 

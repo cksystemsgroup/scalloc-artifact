@@ -27,17 +27,19 @@ export ALLOCATOR_PATH=$BASE_PATH/allocators
 export LD_LIBRARY_PATH=$ALLOCATOR_PATH/
 export ACDC=$BASE_PATH/benchmarks/ACDC/out/Release/acdc
 
-export ALLOCATORS="scalloc llalloc jemalloc hoard tcmalloc ptmalloc2 tbbmalloc_proxy"
+export ALLOCATORS="scalloc llalloc jemalloc hoard tcmalloc ptmalloc2 tbbmalloc_proxy supermalloc"
 # streamflow does not properly work in all experiments
 
 case $1 in
   fast)
     export REPETITIONS=2
     export THREADS_ITERATOR="1 4 8 12"
+    export MAX_NATIVE_THREADS=16
     ;;
   paper)
     export REPETITIONS=10
     export THREADS_ITERATOR="1 2 4 6 8 10 20 30 39 40"
+    export MAX_NATIVE_THREADS=40
     ;;
   *)
     echo "unknown configuration"
@@ -48,5 +50,6 @@ esac
 echo "configuration selected: $1"
 echo "  REPETITIONS: $REPETITIONS"
 echo "  THREADS_ITERATOR: $THREADS_ITERATOR"
+echo "  MAX_NATIVE_THREADS: $MAX_NATIVE_THREADS"
 return 0
 
