@@ -15,6 +15,9 @@ fi
 DS=$1
 PRELOAD=$2
 
+# override THREADS_ITERATOR, since false sharing manifests already with low
+# numbers of threads
+THREADS_ITERATOR="1 2 4 8 10"
 IFS=' ' read -a FOR_THREADS <<< "$THREADS_ITERATOR"
 REPS=$REPETITIONS
 
