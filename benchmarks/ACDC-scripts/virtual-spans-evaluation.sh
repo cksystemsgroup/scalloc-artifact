@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # EXPERIMENT SETTINGS
-OPTIONS="-a -d 5 -l 1 -L 1 -n 16 -N 1000 -C 500 -H 100 -A"
+OPTIONS="-a -d 5 -l 1 -L 1 -n 40 -N 1000 -C 500 -H 100 -A"
 
 FACTOR1="-s"
 FACTOR1_VALUES="4 6 8 10 12 14 16 18 20"
