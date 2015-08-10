@@ -48,8 +48,13 @@ function prepare_allocators {
   ln -s $ACDC_DIR/allocators $ALLOCATORS_DIR
 }
 
+function prepare_plotting {
+  mkdir -p $BASE_DIR/out
+}
+
 prepare_acdc
 prepare_hoard_benchmarks
 prepare_shbench
 prepare_allocators
+prepare_plotting
 
