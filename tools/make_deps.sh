@@ -4,7 +4,12 @@ echo "ubuntu deps..."
 echo ""
 sudo apt-get install \
   build-essential \
-  autotools-dev
+  autotools-dev \
+  autoconf \
+  bc \
+  unzip \
+  python \
+  clang
 echo "ubuntu deps... done"
 
 echo "gyp... "
